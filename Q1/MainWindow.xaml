@@ -1,0 +1,90 @@
+﻿<Window x:Class="Q1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Q1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.2*"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Background="AliceBlue">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="0.3*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.7*"></ColumnDefinition>
+                    <ColumnDefinition ></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center">ID</Label>
+                <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center">Name</Label>
+                <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center">Category</Label>
+                <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center">Quantity</Label>
+                <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center">Discontinued</Label>
+
+                <TextBox Grid.Row="0" Grid.Column="1" Height="25" Width="200" Name="txtID"
+                         Text="{Binding Path=ProductId, Mode=OneWay}"
+                         DataContext="{Binding ElementName=lvProduct, Path=SelectedItem}"></TextBox>
+                <TextBox Grid.Row="1" Grid.Column="1" Height="25" Width="200" Name="txtName"
+                         Text="{Binding Path=ProductName, Mode=OneWay}"
+                            DataContext="{Binding ElementName=lvProduct, Path=SelectedItem}"></TextBox>
+                <ComboBox Grid.Row="2" Grid.Column="1" Height="25" Width="200" x:Name="cboCategory" DisplayMemberPath="CategoryName"
+                          Text="{Binding Path=Category.CategoryName, Mode=OneWay}"
+                            DataContext="{Binding ElementName=lvProduct, Path=SelectedItem}"></ComboBox>
+                <TextBox Grid.Row="3" Grid.Column="1" Height="25" Width="200" Name="txtQuantity"
+                         Text="{Binding Path=QuantityPerUnit, Mode=OneWay}"
+                            DataContext="{Binding ElementName=lvProduct, Path=SelectedItem}"></TextBox>
+                <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                    <RadioButton x:Name="rbTrue" Margin="0,0,20,0" >True</RadioButton>
+                    <RadioButton x:Name="rbFalse" Margin="20,0,0,0" >False</RadioButton>
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="btnAdd" Height="25" Width="60" Content="Add" Margin="10,0,10,0" Click="btnAdd_Click"/>
+                <Button x:Name="btnUpdate" Height="25" Width="60" Content="Update" Margin="10,0,10,0" Click="btnUpdate_Click"/>
+                <Button x:Name="btnDelete" Height="25" Width="60" Content="Delete" Margin="10,0,10,0" Click="btnDelete_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3.*"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <ListView x:Name="lvProduct" MouseLeftButtonUp="lvProduct_MouseLeftButtonUp">
+                    <ListView.View>
+                        <GridView >
+                            <GridViewColumn Width="30" Header="ID" DisplayMemberBinding="{Binding Path=ProductId}"></GridViewColumn>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=ProductName}"></GridViewColumn>
+                            <GridViewColumn Header="Category" DisplayMemberBinding="{Binding Path=Category.CategoryName}"></GridViewColumn>
+                            <GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding Path=QuantityPerUnit}"></GridViewColumn>
+                            <GridViewColumn Header="Discontinued" DisplayMemberBinding="{Binding Path=Discontinued}"></GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+            <Grid Grid.Row="1">
+                <StackPanel>
+                    <Button x:Name="btnSaveFile" Content="Save File" Margin="10,0,10,0" Click="btnSaveFile_Click"/>
+                    <Button x:Name="btnLoadFile" Content="Load File" Margin="10,0,10,0" Click="btnLoadFile_Click"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
